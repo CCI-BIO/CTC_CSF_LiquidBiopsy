@@ -1,0 +1,155 @@
+---
+title: "2_Cancer_Prediction"
+output: html_document
+date: "2025-12-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R 
+
+
+```{r}
+# load packages
+library(Seurat)
+library(SeuratData)
+library(SeuratDisk)
+
+# (if sobj not loaded)
+# load the sobj from 1_QC output
+
+setwd("~/workspace/Nature_Comm_Use_ZCCID")
+
+# Convert format
+# /Due to the SequencingCancerFinder does not produce prediction for the first cell in the data matrix,
+# /First two cells of the data matrix are added to the matrix in order to make sure all cells get a prediction call.
+for (i in names(sobj)) {
+  output_name = paste0("out/2_Cancer_Prediction/CancerFinder_required_format/", i, ".h5Seurat")
+  print(paste0("Converting sample: ", i))
+  temp_sobj <- sobj[[i]]
+  print(paste0("Original matrix size ", dim(temp_sobj), collapse = " x "))
+  temp_sobj_cut <- temp_sobj[, c(1:2)]
+  temp_sobj_cut <- RenameCells(object = temp_sobj_cut, add.cell.id = "DuplicateFirstTwoCells")
+  temp_sobj <- merge(temp_sobj_cut, temp_sobj)
+  print(paste0("Padded matrix size ", dim(temp_sobj), collapse = " x "))
+  SaveH5Seurat(temp_sobj, filename = output_name, overwrite = T)
+  Convert(output_name, dest = "h5ad")
+}
+
+```
+
+## Python
+
+
+```{python}
+import scanpy as sc
+import os
+import glob
+
+os.chdir('/home/rstudio/workspace/Nature_Comm_Use_ZCCID/out/2_Cancer_Prediction/CancerFinder_required_format')
+a_file = glob.glob('*.h5ad')
+a_file
+
+for i in a_file:
+    a_read = sc.read_h5ad(i)
+    #sc.pp.normalize_total(a_read, target_sum=1e4)
+    #sc.pp.log1p(a_read)
+    output_name = i.replace(".h5ad", "_T.h5ad")
+    a_read.T.write_h5ad(output_name)
+
+```
+
+# bash
+
+
+Note: the python path changes as this docker container re-opened
+      go to the terminal and find python by "which python", then copy the path
+      In this run python path is /tmp/RtmpTW3Gok/rstudio/terminal/python
+
+```{bash}
+cd /home/rstudio/workspace/Nature_Comm_Use_ZCCID/utils/utils_SCF_package/SequencingCancerFinder-master
+pwd
+checkpoint=/home/rstudio/workspace/Nature_Comm_Use_ZCCID/utils/utils_SCF_package/model_epoch92.pkl
+for file in /home/rstudio/workspace/Nature_Comm_Use_ZCCID/out/2_Cancer_Prediction/CancerFinder_required_format/*_T.h5ad
+  do 
+    out_file=${file/h5ad/csv}
+    out_file=${out_file/CancerFinder_required_format/CancerFinder_Prediction}
+    
+    /tmp/RtmpTW3Gok/rstudio/terminal/python -u infer.py --ckp=$checkpoint --matrix=$file --out=$out_file
+done
+
+```
+
+# R
+
+
+```{R}
+# load packages
+library(Seurat)
+library(SeuratWrappers)
+library(SeuratObject)
+library(tibble)
+library(data.table)
+library(readr)
+library(dplyr)
+library(stringr)
+
+# (if sobj not loaded)
+# load the sobj from 1_QC output
+
+setwd("~/workspace/Nature_Comm_Use_ZCCID")
+
+# check SCF file list
+list.files("~/workspace/Nature_Comm_Use_ZCCID/out/2_Cancer_Prediction/CancerFinder_Prediction", full.names = T)
+
+# Annotate data
+# Sequencing Cancer Finder
+file_path <- list.files("~/workspace/Nature_Comm_Use_ZCCID/out/2_Cancer_Prediction/CancerFinder_Prediction", full.names = T, pattern = ".csv") %>%
+             sapply(., FUN=function(x) strsplit(x, "/") %>% unlist() %>% .[9])
+
+file_path_biomat <- gsub(pattern = "_T.csv", 
+                         replacement = "", file_path)
+
+file_path_biomat_2 <- names(file_path_biomat)
+names(file_path_biomat_2) <- file_path_biomat
+
+# read CancerFinder output
+for (i in names(file_path_biomat_2)) {
+  
+  scf <- read.csv(file_path_biomat_2[i], colClasses = c("character", "numeric")) %>% 
+         dplyr::filter(!stringr::str_starts(sample, "DuplicateFirstTwoCells")) %>% 
+         tibble::column_to_rownames(var = "sample") %>% 
+         dplyr::rename("SCF_score" = "predict") %>% 
+         mutate(SCF_predict = ifelse(SCF_score == 1, "Tumour", "Normal"))
+  
+  # add to sobj
+  print("----------")
+  print("Cell ID cross check between SCF prediction and Seurat objects.")
+  print(i)
+  print(identical(rownames(scf), colnames(sobj[[i]])))
+  
+  sobj[[i]] <- AddMetaData(sobj[[i]], metadata = scf)
+}
+
+
+```
+
+
+# R
+
+Save the data
+
+```{r}
+setwd("~/workspace/Nature_Comm_Use_ZCCID")
+saveRDS(sobj, file = "out/2_Cancer_Prediction/Prepocessed_2.rds")
+
+```
+
+
+
+
+
+
+

@@ -1,0 +1,34 @@
+,bioid,disease_long,public_subject_id,zcc_id,lm_enrollmnet,lm_mortality,lm_biomat_id,lm_biomat_collection,V(mL),RBC,Enrichment,Preservation,Cytology
+1,CSF383372,Pineoblastoma,905,zccs905,22/2/2023,Deceased,383372,27/2/2023,3.5,No,No,No,
+2,CSF387478,Pineoblastoma,905,zccs905,22/2/2023,Deceased,387478,2/5/2023,3.5,Yes,FACS - Live cells,No,+
+3,CSF396065,Pineoblastoma,905,zccs905,22/2/2023,Deceased,396065,17/8/2023,0.02,No,No,No,
+4,CSF403779,Pineoblastoma,905,zccs905,22/2/2023,Deceased,403779,22/11/2023,1,No,No,No,-
+5,CSF428379,Pineoblastoma,905,zccs905,22/2/2023,Deceased,428379,9/7/2024,1.9,Yes,No,No,+
+6,CSF434052,Pineoblastoma,905,zccs905,22/2/2023,Deceased,434052,28/8/2024,1,Yes,No,Yes,
+7,CSF434893,Pineoblastoma,905,zccs905,22/2/2023,Deceased,434893,3/9/2024,0.6,Yes,No,No,
+10,CSF384921,Posterior fossa A ependymoma,906,zccs906,23/2/2023,Deceased,384921,21/3/2023,1.6,No,No,No,-
+11,CSF425809,Posterior fossa A ependymoma,906,zccs906,23/2/2023,Deceased,425809,17/6/2024,2,No,No,No,
+12,CSF432740,Posterior fossa A ependymoma,906,zccs906,23/2/2023,Deceased,432740,21/8/2024,4.1,Yes,No,No,
+16,CSF383908,Infant-type hemispheric glioma,907,zccs907,3/3/2023,Alive,383908,6/3/2023,2.5,Yes,MICRO,No,
+17,CSF387517,Pilocytic astrocytoma,920,zccs920,6/4/2023,Alive,387517,3/5/2023,3.7,No,No,No,-
+18,CSF390503,Medulloblastoma,929,zccs929,16/5/2023,Alive,390503,7/6/2023,3.3,Yes,No,No,-
+19,CSF394836,Pilocytic astrocytoma,934,zccs934,23/6/2023,Alive,394836,1/8/2023,4,Yes,No,No,
+20,CSF398038,Posterior fossa A ependymoma,948,zccs948,13/9/2023,Alive,398038,13/9/2023,10,No,No,No,
+33,CSF395512,Diffuse leptomeningeal glioneuronal tumour,1344,zccs1344,6/3/2020,Deceased,395512,9/8/2023,3,Yes,MICRO,No,
+34,CSF337322,Diffuse midline glioma,527,zccs527,22/1/2021,Deceased,337322,26/5/2021,2,Yes,No,No,
+35,CSF343889,Medulloblastoma,1520,zccs1520,19/4/2021,Deceased,343889,8/9/2021,0.41,No,No,No,+
+36,CSF341894,Medulloblastoma,1576,zccs1576,16/8/2021,Deceased,341894,9/8/2021,0.69,N/A,No,No,-
+37,CSF360038,Medulloblastoma,1576,zccs1576,16/8/2021,Deceased,360038,15/3/2022,2,No,No,No,-
+38,CSF353421,Diffuse midline glioma,1649,zccs1649,10/1/2022,Deceased,353421,16/12/2021,3.5,Yes,No,No,
+39,CSF361231,Diffuse midline glioma,1649,zccs1649,10/1/2022,Deceased,361231,30/3/2022,3.8,Yes,No,No,
+40,CSF363102,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,363102,22/4/2022,5.3,No,No,No,
+41,CSF384438,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,384438,14/3/2023,1.47,Yes,No,No,-
+42,CSF387541,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,387541,3/5/2023,3.7,No,No,No,
+43,CSF391810,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,391810,21/6/2023,2.5,Yes,No,No,-
+44,CSF395366,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,395366,8/8/2023,5,No,No,No,-
+45,CSF423677,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,423677,28/5/2024,1.8,No,No,No,
+46,CSF431954,Atypical teratoid rhabdoid tumour,1681,zccs1681,19/4/2022,Alive,431954,14/8/2024,0.9,Yes,No,Yes,
+49,CSF367534,Diffuse midline glioma,1695,zccs1695,5/7/2022,Deceased,367534,28/6/2022,3.9,No,No,No,
+50,CSF376420,Medulloblastoma,3414,zccs3414,27/10/2022,Alive,376420,28/10/2022,5,Yes,No,No,
+51,CSF413089,Medulloblastoma,3414,zccs3414,27/10/2022,Alive,413089,20/2/2024,0.9,No,No,No,
+52,CSF378332,Glioneuronal tumour,1713,zccs1713,2/12/2022,Alive,378332,29/11/2022,3.3,No,No,No,-
